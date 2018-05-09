@@ -40,8 +40,8 @@ func (agp *APIGateParser) Path() string {
 func (agp *APIGateParser) QueryStringParameters() url.Values {
 	qp := map[string]interface{}{}
 	q := jsoniter.Get(agp.content, "queryStringParameters")
-	log.Print(q)
-	log.Print(agp)
+	log.Printf("%v", q)
+	log.Printf("%v", agp)
 	if q.ValueType() != jsoniter.NilValue {
 		q.ToVal(&qp)
 	}
