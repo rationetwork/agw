@@ -1,7 +1,6 @@
 package agw
 
 import (
-	"log"
 	"net/url"
 
 	"github.com/json-iterator/go"
@@ -40,10 +39,7 @@ func (agp *APIGateParser) Path() string {
 func (agp *APIGateParser) QueryStringParameters() url.Values {
 	qp := map[string]interface{}{}
 	q := jsoniter.Get(agp.content, "queryStringParameters")
-	log.Print(q.ValueType())
-	log.Print(q.Size())
-	log.Print(q.LastError())
-	if q.ValueType() != jsoniter.NilValue {
+	if q.ValueType() != jsoniter.NilValue && q.LastError() == nil {
 		q.ToVal(&qp)
 	}
 	re := make(url.Values, len(qp))
