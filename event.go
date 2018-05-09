@@ -1,7 +1,6 @@
 package agw
 
 import (
-	"log"
 	"net/url"
 
 	"github.com/json-iterator/go"
@@ -40,9 +39,6 @@ func (agp *APIGateParser) Path() string {
 func (agp *APIGateParser) QueryStringParameters() url.Values {
 	qp := map[string]interface{}{}
 	q := jsoniter.Get(agp.content, "queryStringParameters")
-	log.Print(q.ValueType())
-	log.Print(q.LastError())
-	log.Print(q.Size())
 	if q.ValueType() != jsoniter.NilValue && q.LastError() == nil {
 		q.ToVal(&qp)
 	}
@@ -67,7 +63,7 @@ func (agp *APIGateParser) Url() string {
 func (agp *APIGateParser) StageVariables() map[string]string {
 	re := map[string]string{}
 	sv := jsoniter.Get(agp.content, "stageVariables")
-	if sv.ValueType() != jsoniter.NilValue {
+	if sv.ValueType() != jsoniter.NilValue && sv.LastError() == nil {
 		sv.ToVal(&re)
 	}
 	return re
@@ -76,7 +72,7 @@ func (agp *APIGateParser) StageVariables() map[string]string {
 func (agp *APIGateParser) Headers() map[string]string {
 	re := map[string]string{}
 	sv := jsoniter.Get(agp.content, "headers")
-	if sv.ValueType() != jsoniter.NilValue {
+	if sv.ValueType() != jsoniter.NilValue && sv.LastError() == nil {
 		sv.ToVal(&re)
 	}
 	return re
