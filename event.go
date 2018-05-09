@@ -41,7 +41,6 @@ func (agp *APIGateParser) QueryStringParameters() url.Values {
 	qp := map[string]interface{}{}
 	q := jsoniter.Get(agp.content, "queryStringParameters")
 	log.Print(q.ValueType())
-	log.Print(q.MustBeValid())
 	log.Print(q.LastError())
 	log.Print(q.Size())
 	if q.ValueType() != jsoniter.NilValue && q.LastError() == nil {
